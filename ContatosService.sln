@@ -1,8 +1,28 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContatosService.Api", "src\ContatosService.Api\ContatosService.Api.csproj", "{73B1DAD4-E456-4EF1-AC13-ED00917161E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContatosService.Domain", "src\ContatosService.Domain\ContatosService.Domain.csproj", "{E05F49AC-AB87-44CF-A7DB-D882A6BFCF8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContatosService.Infra", "src\ContatosService.Infra\ContatosService.Infra.csproj", "{D7B16F75-39DD-4718-9CF7-D15F35BCC2AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73B1DAD4-E456-4EF1-AC13-ED00917161E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73B1DAD4-E456-4EF1-AC13-ED00917161E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73B1DAD4-E456-4EF1-AC13-ED00917161E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73B1DAD4-E456-4EF1-AC13-ED00917161E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E05F49AC-AB87-44CF-A7DB-D882A6BFCF8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E05F49AC-AB87-44CF-A7DB-D882A6BFCF8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E05F49AC-AB87-44CF-A7DB-D882A6BFCF8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E05F49AC-AB87-44CF-A7DB-D882A6BFCF8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7B16F75-39DD-4718-9CF7-D15F35BCC2AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7B16F75-39DD-4718-9CF7-D15F35BCC2AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7B16F75-39DD-4718-9CF7-D15F35BCC2AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7B16F75-39DD-4718-9CF7-D15F35BCC2AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
