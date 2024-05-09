@@ -2,7 +2,7 @@
 
 public class Telefone
 {
-    public string DDD { get; private set; }
+    public string Ddd { get; private set; }
     public string Numero { get; private set; }
 
     public Telefone(string ddd, string numero)
@@ -12,7 +12,7 @@ public class Telefone
             throw new ArgumentException("O ddd nao eh valido.");
         }
 
-        DDD = ddd;
+        Ddd = ddd;
         Numero = numero;
     }
 
