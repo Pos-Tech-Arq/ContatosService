@@ -16,7 +16,7 @@ public class ContatosRepository : IContatosRepository
         _dbSet = applicationDbContext.Contatos;
     }
 
-    public async Task CreateContatos(Contato contato)
+    public async Task Create(Contato contato)
     {
         await _dbSet.AddAsync(contato);
         await _applicationDbContext.SaveChangesAsync();

@@ -4,5 +4,5 @@ namespace ContatosService.Domain.Contracts;
 
 public interface IContatosRepository
 {
-    Task CreateContatos(Contato contato);
+    Task Create(Contato contato);
 }

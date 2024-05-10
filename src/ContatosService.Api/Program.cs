@@ -1,4 +1,8 @@
+using ContatosService.Api.Requests;
+using ContatosService.Domain.Commands;
+using ContatosService.Domain.Contracts;
 using ContatosService.Infra.Configurations;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureDatabase(builder.Configuration);
 builder.Services.ConfigureRepositories();
+builder.Services.AddDomainService();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,31 +25,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing",
-    "Bracing",
-    "Chilly",
-    "Cool",
-    "Mild",
-    "Warm",
-    "Balmy",
-    "Hot",
-    "Sweltering",
-    "Scorching"
-};
-
-app.MapPost("/api/v1/contatos", () =>
+app.MapPost("/api/v1/contatos", async (ICriaContatoService criaContatoService, [FromBody] CriaContatoRequest request) =>
     {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
+        await criaContatoService.Handle(new CriaContatoCommand(request.Telefone.Ddd, request.Telefone.Numero, request.Nome,
+            request.Email));
+
+        return Results.Accepted();
     })
     .WithName("CriaContato")
     .WithOpenApi();
