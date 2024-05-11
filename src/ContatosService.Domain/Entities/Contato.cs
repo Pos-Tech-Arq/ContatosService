@@ -13,6 +13,8 @@ public class Contato : Entidade, IAggregateRoot
     public Contato(string nome, string email,Telefone telefone)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(nome, "O Nome nao eh valido.");
+        ArgumentException.ThrowIfNullOrWhiteSpace(nome, "O Nome nao eh valido.");
+        ArgumentException.ThrowIfNullOrWhiteSpace(nome, "O Nome nao eh valido.");
         Nome = nome;
         Telefone = telefone;
         Email = email;

@@ -1,7 +1,9 @@
 using ContatosService.Api.Requests;
+using ContatosService.Api.Requests.Validators;
 using ContatosService.Domain.Commands;
 using ContatosService.Domain.Contracts;
 using ContatosService.Infra.Configurations;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigureDatabase(builder.Configuration);
 builder.Services.ConfigureRepositories();
 builder.Services.AddDomainService();
+builder.Services.AddValidatorsFromAssemblyContaining<CriarContatoRequestValidator>();
+builder.AddFluentValidationEndpointFilter();
 
 var app = builder.Build();
 
@@ -27,17 +31,14 @@ app.UseHttpsRedirection();
 
 app.MapPost("/api/v1/contatos", async (ICriaContatoService criaContatoService, [FromBody] CriaContatoRequest request) =>
     {
-        await criaContatoService.Handle(new CriaContatoCommand(request.Telefone.Ddd, request.Telefone.Numero, request.Nome,
+        await criaContatoService.Handle(new CriaContatoCommand(request.Telefone.Ddd, request.Telefone.Numero,
+            request.Nome,
             request.Email));
 
         return Results.Accepted();
     })
     .WithName("CriaContato")
-    .WithOpenApi();
+    .WithOpenApi()
+    .AddFluentValidationFilter();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

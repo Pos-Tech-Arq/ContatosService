@@ -2,6 +2,6 @@
 
 public class TelefoneRequest
 {
-    public string Ddd { get; set; }
-    public string Numero { get; set; }
+    public string Ddd { get; set; } = string.Empty;
+    public string Numero { get; set; } = string.Empty;
 }

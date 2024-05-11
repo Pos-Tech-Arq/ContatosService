@@ -2,7 +2,7 @@
 
 public class CriaContatoRequest
 {
-    public string Nome { get; set; }
-    public string Email { get; set; }
-    public TelefoneRequest Telefone { get; set; }
+    public string Nome { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public TelefoneRequest Telefone { get; set; } = new();
 }
