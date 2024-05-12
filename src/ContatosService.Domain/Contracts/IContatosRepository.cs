@@ -5,4 +5,6 @@ namespace ContatosService.Domain.Contracts;
 public interface IContatosRepository
 {
     Task Create(Contato contato);
+
+    IEnumerable<Contato> GetAll();
 }

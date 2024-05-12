@@ -22,9 +22,9 @@ public class Contato : Entidade, IAggregateRoot
     }
 
     //TODO Deve receber como parametro o serviço e as informações nescessário para adicionar a região
-    public void AdicionaRegiao()
+    public void AdicionaRegiao(IRegiaoRepository regiaoRepository)
     {
-        //TODO Deve criar a região e atribuir.
+        Regiao = regiaoRepository.Get(Telefone.Ddd);
     }
 
     private Contato()

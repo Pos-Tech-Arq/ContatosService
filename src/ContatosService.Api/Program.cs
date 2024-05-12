@@ -2,6 +2,7 @@ using ContatosService.Api.Requests;
 using ContatosService.Api.Requests.Validators;
 using ContatosService.Domain.Commands;
 using ContatosService.Domain.Contracts;
+using ContatosService.Domain.Entities;
 using ContatosService.Infra.Configurations;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,16 @@ app.MapPost("/api/v1/contatos", async (ICriaContatoService criaContatoService, [
         return Results.Accepted();
     })
     .WithName("CriaContato")
+    .WithOpenApi()
+    .AddFluentValidationFilter();
+
+app.MapGet("/api/v1/contatos/all", (IBuscaContatosService buscaContatosService) =>
+{
+    IEnumerable<Contato>contatos = buscaContatosService.Handle();
+
+    return Results.Ok(contatos);
+})
+    .WithName("BuscaContatos")
     .WithOpenApi()
     .AddFluentValidationFilter();
 

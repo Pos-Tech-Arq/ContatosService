@@ -9,16 +9,19 @@ public class CriaContatoService : ICriaContatoService
 {
     private readonly IContatosRepository _contatosRepository;
 
-    public CriaContatoService(IContatosRepository contatosRepository)
+    private readonly IRegiaoRepository _regiaoRepository;
+
+    public CriaContatoService(IContatosRepository contatosRepository, IRegiaoRepository regiaoRepository)
     {
         _contatosRepository = contatosRepository;
+        _regiaoRepository = regiaoRepository;
     }
 
     public Task Handle(CriaContatoCommand command)
     {
         var telefone = new Telefone(command.Ddd, command.Numero);
         var contato = new Contato(command.Nome, command.Email, telefone);
-        contato.AdicionaRegiao();
+        contato.AdicionaRegiao(_regiaoRepository);
 
         return _contatosRepository.Create(contato);
     }
