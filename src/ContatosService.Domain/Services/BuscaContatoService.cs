@@ -1,21 +1,23 @@
-﻿using ContatosService.Domain.Commands;
-using ContatosService.Domain.Contracts;
+﻿using ContatosService.Domain.Contracts;
 using ContatosService.Domain.Entities;
-using ContatosService.Domain.ValueObjects;
 
 namespace ContatosService.Domain.Services;
 
 public class BuscaContatoService : IBuscaContatosService
 {
     private readonly IContatosRepository _contatosRepository;
+    private readonly IRegiaoRepository _regiaoRepository;
 
-    public BuscaContatoService(IContatosRepository contatosRepository)
+    public BuscaContatoService(IContatosRepository contatosRepository, IRegiaoRepository regiaoRepository)
     {
         _contatosRepository = contatosRepository;
+        _regiaoRepository = regiaoRepository;
     }
 
     public IEnumerable<Contato> Handle()
     {
-        return _contatosRepository.GetAll();
+        IEnumerable<Contato> contatos = _contatosRepository.GetAll();
+        contatos.All(c => { c.AdicionaRegiao(_regiaoRepository); return true; });
+        return contatos;
     }
 }
