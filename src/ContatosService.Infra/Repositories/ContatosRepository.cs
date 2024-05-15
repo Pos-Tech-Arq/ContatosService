@@ -21,4 +21,9 @@ public class ContatosRepository : IContatosRepository
         await _dbSet.AddAsync(contato);
         await _applicationDbContext.SaveChangesAsync();
     }
+
+    public IEnumerable<Contato>GetAll()
+    {
+         return _applicationDbContext.Set<Contato>().ToList();
+    }
 }

@@ -22,6 +22,6 @@ public class CidadeMapping : IEntityTypeConfiguration<Cidade>
             .IsRequired();
 
         builder.HasOne(c => c.Regiao)
-            .WithMany(c => c.Cidades);
+            .WithMany(c => c.Cidades).HasPrincipalKey(u => u.Id);
     }
 }

@@ -9,5 +9,6 @@ public static class ConfigureRepositoriesExtension
     public static void ConfigureRepositories(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddScoped<IContatosRepository, ContatosRepository>();
+        serviceCollection.AddScoped<IRegiaoRepository, RegiaoRepository>();
     }
 }
