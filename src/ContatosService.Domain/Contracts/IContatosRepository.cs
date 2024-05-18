@@ -6,5 +6,5 @@ public interface IContatosRepository
 {
     Task Create(Contato contato);
 
-    IEnumerable<Contato> GetAll();
+    Task<IEnumerable<Contato>> GetAll();
 }

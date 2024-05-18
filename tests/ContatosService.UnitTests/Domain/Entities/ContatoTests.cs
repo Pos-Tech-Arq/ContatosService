@@ -2,6 +2,7 @@
 using ContatosService.Domain.Contracts;
 using ContatosService.Domain.Entities;
 using ContatosService.Domain.ValueObjects;
+using ContatosService.Infra.Services;
 using FluentAssertions;
 using Moq;
 
@@ -13,16 +14,16 @@ public class ContatoTests
     private readonly Fixture _fixture = new();
 
     [Fact]
-    public void AdicionaRegiao_RegiaoAdicionadaDeveSerEquivalente()
+    public async Task AdicionaRegiao_RegiaoAdicionadaDeveSerEquivalente()
     {
         var cidades = new List<Cidade>();
         cidades.Add(new Cidade(_fixture.Create<string>()));
         const string ddd = "88";
         var regiao = new Regiao(ddd, cidades, _fixture.Create<string>());
-        _regiaoRepository.Setup(c => c.Get(ddd)).Returns(regiao);
+        _regiaoRepository.Setup(c => c.GetByDdd(ddd)).ReturnsAsync(regiao);
         var contato = new Contato("nomexpto", "emailxpto", new Telefone(ddd, "99999999"));
 
-        contato.AdicionaRegiao(_regiaoRepository.Object);
+        await contato.AdicionaRegiao(_regiaoRepository.Object, new Mock<IBuscaRegiaoService>().Object);
 
         contato.Regiao.Should().BeEquivalentTo(regiao);
     }

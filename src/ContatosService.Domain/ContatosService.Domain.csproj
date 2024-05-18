@@ -6,4 +6,8 @@
         <Nullable>disable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Remove="Services\BuscaContatoService.cs" />
+    </ItemGroup>
+
 </Project>

@@ -22,8 +22,8 @@ public class ContatosRepository : IContatosRepository
         await _applicationDbContext.SaveChangesAsync();
     }
 
-    public IEnumerable<Contato>GetAll()
+    public async Task<IEnumerable<Contato>> GetAll()
     {
-         return _applicationDbContext.Set<Contato>().ToList();
+         return await _dbSet.ToListAsync();
     }
 }

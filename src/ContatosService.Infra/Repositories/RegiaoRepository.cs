@@ -25,31 +25,8 @@ public class RegiaoRepository : IRegiaoRepository
         await _applicationDbContext.SaveChangesAsync();
     }
 
-    public Regiao Get(string ddd)
+    public async Task<Regiao?> GetByDdd(string ddd)
     {
-        
-        var Regiao = _applicationDbContext.Set<Regiao>().Where(d=>d.Ddd ==ddd).FirstOrDefault();
-
-        return Regiao ?? BuscaRegiao(ddd).Result;
-    }
-
-    public async Task<Regiao> BuscaRegiao(string ddd)
-    {
-        HttpClient client = new HttpClient();
-        Regiao regiao = null;
-        HttpResponseMessage response = await  client.GetAsync($"https://brasilapi.com.br/api/ddd/v1/{ddd}");
-        if (response.IsSuccessStatusCode)
-        {
-           var region = await response.Content.ReadFromJsonAsync<Region>();
-            regiao = new (ddd,region.cities.Select(r=>new Cidade(r)).ToList(), region.State);
-        }
-        return regiao;
-    }
-
-    public class Region
-    {
-        public string State { get; set; }
-
-        public List<string> cities { get; set; }
+        return await _dbSet.FirstOrDefaultAsync(c => c.Ddd == ddd);
     }
 }

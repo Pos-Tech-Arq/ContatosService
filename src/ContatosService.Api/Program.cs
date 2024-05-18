@@ -4,6 +4,7 @@ using ContatosService.Domain.Commands;
 using ContatosService.Domain.Contracts;
 using ContatosService.Domain.Entities;
 using ContatosService.Infra.Configurations;
+using ContatosService.Infra.ExternalServices.BrasilApiService;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigureDatabase(builder.Configuration);
 builder.Services.ConfigureRepositories();
 builder.Services.AddDomainService();
+builder.Services.AddBrasilApiClientExtensions(builder.Configuration);
 builder.Services.AddValidatorsFromAssemblyContaining<CriarContatoRequestValidator>();
 builder.AddFluentValidationEndpointFilter();
 
@@ -42,9 +44,9 @@ app.MapPost("/api/v1/contatos", async (ICriaContatoService criaContatoService, [
     .WithOpenApi()
     .AddFluentValidationFilter();
 
-app.MapGet("/api/v1/contatos/all", (IBuscaContatosService buscaContatosService) =>
+app.MapGet("/api/v1/contatos/all", async (IContatosRepository ContatosRepository) =>
 {
-    IEnumerable<Contato>contatos = buscaContatosService.Handle();
+    var contatos = await ContatosRepository.GetAll();
 
     return Results.Ok(contatos);
 })

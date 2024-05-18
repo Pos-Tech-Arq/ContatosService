@@ -1,5 +1,6 @@
 ﻿using ContatosService.Domain.Contracts;
 using ContatosService.Domain.ValueObjects;
+using ContatosService.Infra.Services;
 
 namespace ContatosService.Domain.Entities;
 
@@ -19,9 +20,9 @@ public class Contato : Entidade, IAggregateRoot
     }
 
     //TODO Deve receber como parametro o serviço e as informações nescessário para adicionar a região
-    public void AdicionaRegiao(IRegiaoRepository regiaoRepository)
+    public async Task AdicionaRegiao(IRegiaoRepository regiaoRepository, IBuscaRegiaoService buscaRegiaoService)
     {
-        Regiao = regiaoRepository.Get(Telefone.Ddd);
+        Regiao = await regiaoRepository.GetByDdd(Telefone.Ddd) ?? await buscaRegiaoService.BuscaRegiao(Telefone.Ddd);
     }
 
     private Contato()
