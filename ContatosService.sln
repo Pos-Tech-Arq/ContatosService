@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContatosService.Domain", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContatosService.Infra", "src\ContatosService.Infra\ContatosService.Infra.csproj", "{D7B16F75-39DD-4718-9CF7-D15F35BCC2AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContatosService.Tests", "tests\ContatosService.Tests\ContatosService.Tests.csproj", "{27DD6C82-22BE-45EE-96D0-C6A16AA1D485}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContatosService.UnitTests", "tests\ContatosService.UnitTests\ContatosService.UnitTests.csproj", "{27DD6C82-22BE-45EE-96D0-C6A16AA1D485}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
