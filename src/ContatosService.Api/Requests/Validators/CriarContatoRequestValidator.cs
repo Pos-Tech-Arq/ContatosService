@@ -26,12 +26,16 @@ public class CriarContatoRequestValidator : AbstractValidator<CriaContatoRequest
             .NotEmpty()
             .WithMessage("Ddd é obrigatório.")
             .Length(2)
-            .WithMessage("O Ddd deve conter 2 caracteres.");
+            .WithMessage("O Ddd deve conter 2 caracteres.")
+            .Matches(@"^\d+$")
+            .WithMessage("O campo Ddd deve conter apenas números.");
 
         RuleFor(c => c.Telefone.Numero)
             .NotEmpty()
             .WithMessage("Numero é obrigatório.")
             .Length(8, 9)
-            .WithMessage("O nome deve conter de 8 a 9 caracteres..");
+            .WithMessage("O nome deve conter de 8 a 9 caracteres.")
+            .Matches(@"^\d+$")
+            .WithMessage("O campo Numero deve conter apenas números.");;
     }
 }

@@ -24,6 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\src\ContatosService.Api\ContatosService.Api.csproj" />
       <ProjectReference Include="..\..\src\ContatosService.Domain\ContatosService.Domain.csproj" />
     </ItemGroup>
 
