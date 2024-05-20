@@ -6,5 +6,5 @@ public interface IContatosRepository
 {
     Task Create(Contato contato);
 
-    Task<IEnumerable<Contato>> GetAll();
+    Task<IEnumerable<Contato>> BuscaRegiao(string? ddd);
 }

@@ -2,6 +2,7 @@
 using ContatosService.Domain.Entities;
 using ContatosService.Infra.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ContatosService.Infra.Repositories;
 
@@ -22,8 +23,18 @@ public class ContatosRepository : IContatosRepository
         await _applicationDbContext.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<Contato>> GetAll()
+    public async Task<IEnumerable<Contato>> BuscaRegiao(string? ddd)
     {
-         return await _dbSet.ToListAsync();
+        var query = _dbSet
+            .Include(c => c.Regiao)
+            .AsQueryable();
+
+        if (!ddd.IsNullOrEmpty())
+        {
+            query = query
+                .Where(c => c.Telefone.Ddd == ddd);
+        }
+
+        return await query.ToListAsync();
     }
 }
