@@ -32,5 +32,27 @@ public static class Contatos
             .WithName("BuscaContatos")
             .WithOpenApi()
             .AddFluentValidationFilter();
+
+        users.MapPut("", async (IAtualizaContatoService atualizaContatoService, [FromBody] AtualizaContatoRequest request) =>
+        {
+            await atualizaContatoService.Handle(new AtualizaContatoCommand(request.Id,request.Telefone.Ddd, request.Telefone.Numero,
+                request.Nome,
+                request.Email));
+
+            return Results.Accepted();
+        })
+             .WithName("AtualizaContato")
+             .WithOpenApi()
+             .AddFluentValidationFilter();
+
+        users.MapDelete("", async (IRemoveContatoService removeContatoService, [FromQuery] Guid Id) =>
+        {
+            await removeContatoService.Handle(new RemoveContatoCommand(Id));
+
+            return Results.Accepted();
+        })
+            .WithName("RemoveContato")
+            .WithOpenApi()
+            .AddFluentValidationFilter();
     }
 }

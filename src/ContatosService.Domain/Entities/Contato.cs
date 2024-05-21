@@ -19,6 +19,14 @@ public class Contato : Entidade, IAggregateRoot
         Id = Guid.NewGuid();
     }
 
+    public Contato(Guid id,string nome, string email, Telefone telefone)
+    {
+        Nome = nome;
+        Telefone = telefone;
+        Email = email;
+        Id = id;
+    }
+
     //TODO Deve receber como parametro o serviço e as informações nescessário para adicionar a região
     public async Task AdicionaRegiao(IRegiaoRepository regiaoRepository, IBuscaRegiaoService buscaRegiaoService)
     {
