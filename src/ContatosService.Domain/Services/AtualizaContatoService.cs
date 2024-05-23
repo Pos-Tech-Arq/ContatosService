@@ -22,8 +22,9 @@ public class AtualizaContatoService : IAtualizaContatoService
 
     public async Task Handle(AtualizaContatoCommand command)
     {
-        var telefone = new Telefone(command.Ddd, command.Numero);
-        var contato = new Contato(command.Id, command.Nome, command.Email, telefone);
+        var contato =  await _contatosRepository.BuscaId(command.Id);
+        contato.Update(command.Nome,command.Email,command.Ddd,command.Numero);
+
         await contato.AdicionaRegiao(_regiaoRepository, _buscaRegiaoService);
 
         await _contatosRepository.Update(contato);

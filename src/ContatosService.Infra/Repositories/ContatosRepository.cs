@@ -47,11 +47,7 @@ public class ContatosRepository : IContatosRepository
 
     public async Task<Contato> BuscaId(Guid id)
     {
-        var query = _dbSet
-            .Include(c => c.Regiao)
-            .AsQueryable().Where(c => c.Id == id);
-
-        return await query.FirstAsync();
+        return await _dbSet.Include(c=>c.Regiao).FirstAsync(c=>c.Id ==id);
     }
 
     public async Task Remove(Contato contato)
