@@ -27,19 +27,22 @@ public class ContatosRepository : IContatosRepository
     public async Task Update(Contato contato)
     {
         _dbSet.Update(contato);
+        var entityState = _applicationDbContext.Entry(contato.Regiao).State;
+        _applicationDbContext.Entry(contato.Regiao).State =
+            entityState == EntityState.Detached
+                ? EntityState.Added
+                : entityState;
+        
         await _applicationDbContext.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<Contato>> BuscaRegiao(string? ddd)
     {
-        var query = _dbSet
-            .Include(c => c.Regiao)
-            .AsQueryable();
+        var query = _dbSet.Include(c => c.Regiao).AsQueryable();
 
         if (!ddd.IsNullOrEmpty())
         {
-            query = query
-                .Where(c => c.Telefone.Ddd == ddd);
+            query = query.Where(c => c.Telefone.Ddd == ddd);
         }
 
         return await query.ToListAsync();
@@ -47,7 +50,7 @@ public class ContatosRepository : IContatosRepository
 
     public async Task<Contato> BuscaId(Guid id)
     {
-        return await _dbSet.Include(c=>c.Regiao).FirstAsync(c=>c.Id ==id);
+        return await _dbSet.Include(c => c.Regiao).FirstAsync(c => c.Id == id);
     }
 
     public async Task Remove(Contato contato)

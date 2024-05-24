@@ -12,7 +12,7 @@ public class Contato : Entidade, IAggregateRoot
     public Telefone Telefone { get; private set; }
     public Regiao? Regiao { get; private set; }
 
-    public Contato(string nome, string email,Telefone telefone)
+    public Contato(string nome, string email, Telefone telefone)
     {
         Nome = nome;
         Telefone = telefone;
@@ -20,7 +20,7 @@ public class Contato : Entidade, IAggregateRoot
         Id = Guid.NewGuid();
     }
 
-    public Contato(Guid id,string nome, string email, Telefone telefone)
+    public Contato(Guid id, string nome, string email, Telefone telefone)
     {
         Nome = nome;
         Telefone = telefone;
@@ -32,9 +32,9 @@ public class Contato : Entidade, IAggregateRoot
     {
         Nome = nome;
         Email = email;
-        Telefone = new Telefone(ddd,numero);
+        Telefone = new Telefone(ddd, numero);
     }
-    //TODO Deve receber como parametro o serviço e as informações nescessário para adicionar a região
+
     public async Task AdicionaRegiao(IRegiaoRepository regiaoRepository, IBuscaRegiaoService buscaRegiaoService)
     {
         Regiao = await regiaoRepository.GetByDdd(Telefone.Ddd) ?? await buscaRegiaoService.BuscaRegiao(Telefone.Ddd);

@@ -9,23 +9,25 @@ public static class Contatos
 {
     public static void RegisterContatosEndpoints(this IEndpointRouteBuilder routes)
     {
-        var users = routes.MapGroup("/api/v1/contatos");
-        
-        users.MapPost("", async (ICriaContatoService criaContatoService, [FromBody] CriaContatoRequest request) =>
-            {
-                await criaContatoService.Handle(new CriaContatoCommand(request.Telefone.Ddd, request.Telefone.Numero,
-                    request.Nome,
-                    request.Email));
+        var contatoRoute = routes.MapGroup("/api/v1/contatos");
 
-                return Results.Accepted();
-            })
+        contatoRoute.MapPost("",
+                async (ICriaContatoService criaContatoService, [FromBody] CriaContatoRequest request) =>
+                {
+                    await criaContatoService.Handle(new CriaContatoCommand(request.Telefone.Ddd,
+                        request.Telefone.Numero,
+                        request.Nome,
+                        request.Email));
+
+                    return Results.Accepted();
+                })
             .WithName("CriaContato")
             .WithOpenApi()
             .AddFluentValidationFilter();
 
-        users.MapGet("", async (IContatosRepository ContatosRepository, [FromQuery] string? Ddd) =>
+        contatoRoute.MapGet("", async (IContatosRepository contatosRepository, [FromQuery] string? ddd) =>
             {
-                var contatos = await ContatosRepository.BuscaRegiao(Ddd);
+                var contatos = await contatosRepository.BuscaRegiao(ddd);
 
                 return Results.Ok(contatos);
             })
@@ -33,24 +35,26 @@ public static class Contatos
             .WithOpenApi()
             .AddFluentValidationFilter();
 
-        users.MapPut("", async (IAtualizaContatoService atualizaContatoService, [FromBody] AtualizaContatoRequest request) =>
-        {
-            await atualizaContatoService.Handle(new AtualizaContatoCommand(request.Id,request.Telefone.Ddd, request.Telefone.Numero,
-                request.Nome,
-                request.Email));
+        contatoRoute.MapPut("",
+                async (IAtualizaContatoService atualizaContatoService, [FromBody] AtualizaContatoRequest request) =>
+                {
+                    await atualizaContatoService.Handle(new AtualizaContatoCommand(request.Id, request.Telefone.Ddd,
+                        request.Telefone.Numero,
+                        request.Nome,
+                        request.Email));
 
-            return Results.Accepted();
-        })
-             .WithName("AtualizaContato")
-             .WithOpenApi()
-             .AddFluentValidationFilter();
+                    return Results.Accepted();
+                })
+            .WithName("AtualizaContato")
+            .WithOpenApi()
+            .AddFluentValidationFilter();
 
-        users.MapDelete("", async (IRemoveContatoService removeContatoService, [FromQuery] Guid Id) =>
-        {
-            await removeContatoService.Handle(new RemoveContatoCommand(Id));
+        contatoRoute.MapDelete("", async (IRemoveContatoService removeContatoService, [FromQuery] Guid Id) =>
+            {
+                await removeContatoService.Handle(new RemoveContatoCommand(Id));
 
-            return Results.Accepted();
-        })
+                return Results.Accepted();
+            })
             .WithName("RemoveContato")
             .WithOpenApi()
             .AddFluentValidationFilter();

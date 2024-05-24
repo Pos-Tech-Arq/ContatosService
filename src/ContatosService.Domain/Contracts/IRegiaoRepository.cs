@@ -6,5 +6,5 @@ public interface IRegiaoRepository
 {
     Task Create(Regiao contato);
 
-    Task<Regiao> GetByDdd(string ddd);
+    Task<Regiao?> GetByDdd(string ddd);
 }
