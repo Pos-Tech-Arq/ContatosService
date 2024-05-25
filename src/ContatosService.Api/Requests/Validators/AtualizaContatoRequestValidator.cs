@@ -6,10 +6,6 @@ public class AtualizaContatoRequestValidator : AbstractValidator<AtualizaContato
 {
     public AtualizaContatoRequestValidator()
     {
-        RuleFor(c => c.Id)
-            .NotEmpty()
-            .WithMessage("Id é obrigatório.");
-
         RuleFor(c => c.Email)
             .NotEmpty()
             .WithMessage("Email é obrigatório.")

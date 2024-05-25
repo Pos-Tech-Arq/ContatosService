@@ -14,14 +14,6 @@ namespace ContatosService.UnitTests.Api.RequestValidator
         }
 
         [Fact]
-        public void Deve_Falhar_Quando_Id_Esta_Vazio()
-        {
-            var request = new AtualizaContatoRequest { Id = Guid.Empty};
-            var result = _validator.TestValidate(request);
-            result.ShouldHaveValidationErrorFor(r => r.Id);
-        }
-
-        [Fact]
         public void Deve_Falhar_Quando_Email_Esta_Vazio()
         {
             var request = new AtualizaContatoRequest { Email = "" };
@@ -50,7 +42,6 @@ namespace ContatosService.UnitTests.Api.RequestValidator
         {
             var request = new AtualizaContatoRequest
             {
-                Id = Guid.NewGuid(),
                 Email = "email@valido.com",
                 Nome = "Nome Valido",
                 Telefone = new TelefoneRequest { Ddd = "12", Numero = "12345678" }

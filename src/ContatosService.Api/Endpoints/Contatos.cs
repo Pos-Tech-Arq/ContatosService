@@ -19,7 +19,7 @@ public static class Contatos
                         request.Nome,
                         request.Email));
 
-                    return Results.Accepted();
+                    return TypedResults.NoContent();
                 })
             .WithName("CriaContato")
             .WithOpenApi()
@@ -29,31 +29,31 @@ public static class Contatos
             {
                 var contatos = await contatosRepository.BuscaRegiao(ddd);
 
-                return Results.Ok(contatos);
+                return TypedResults.Ok(contatos);
             })
             .WithName("BuscaContatos")
             .WithOpenApi()
             .AddFluentValidationFilter();
 
-        contatoRoute.MapPut("",
-                async (IAtualizaContatoService atualizaContatoService, [FromBody] AtualizaContatoRequest request) =>
+        contatoRoute.MapPut("{id}",
+                async (IAtualizaContatoService atualizaContatoService, [FromBody] AtualizaContatoRequest request,[FromRoute] Guid id) =>
                 {
-                    await atualizaContatoService.Handle(new AtualizaContatoCommand(request.Id, request.Telefone.Ddd,
+                    await atualizaContatoService.Handle(new AtualizaContatoCommand(id, request.Telefone.Ddd,
                         request.Telefone.Numero,
                         request.Nome,
                         request.Email));
 
-                    return Results.Accepted();
+                    return TypedResults.NoContent();
                 })
             .WithName("AtualizaContato")
             .WithOpenApi()
             .AddFluentValidationFilter();
 
-        contatoRoute.MapDelete("", async (IRemoveContatoService removeContatoService, [FromQuery] Guid Id) =>
+        contatoRoute.MapDelete("{id}", async (IRemoveContatoService removeContatoService, [FromRoute] Guid id) =>
             {
-                await removeContatoService.Handle(new RemoveContatoCommand(Id));
+                await removeContatoService.Handle(new RemoveContatoCommand(id));
 
-                return Results.Accepted();
+                return TypedResults.NoContent();
             })
             .WithName("RemoveContato")
             .WithOpenApi()
