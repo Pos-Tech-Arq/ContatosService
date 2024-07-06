@@ -1,6 +1,4 @@
 INSERT INTO Contatos (Id, Nome, Ddd, Numero, RegiaoId, Email)
-VALUES (N'6238B691-480F-47B3-B2CC-29BCCD5B3BD2', N'Fulano', N'11', N'999999999', N'34C9EB06-AAF2-47CB-9F4F-EDBCA16330B0', N'fulano@email.com');
-INSERT INTO Contatos (Id, Nome, Ddd, Numero, RegiaoId, Email)
 VALUES (N'C1B1DC14-ABAD-483E-87A9-BF46954C8E10', N'Ciclano', N'11', N'988899999', N'34C9EB06-AAF2-47CB-9F4F-EDBCA16330B0', N'ciclano@email.com');
 INSERT INTO Contatos (Id, Nome, Ddd, Numero, RegiaoId, Email)
 VALUES (N'64E4FEB7-6ABB-4C19-9C08-2F128F1F4490', N'Beltrano', N'11', N'999997777', N'34C9EB06-AAF2-47CB-9F4F-EDBCA16330B0', N'beltrano@email.com');
