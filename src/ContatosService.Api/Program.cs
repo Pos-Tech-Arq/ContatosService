@@ -30,3 +30,7 @@ app.UseHttpsRedirection();
 app.RegisterContatosEndpoints();
 
 app.Run();
+
+public partial class Program
+{
+}
