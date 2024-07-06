@@ -22,7 +22,11 @@ public class ContatosServiceFactory : WebApplicationFactory<Program>, IAsyncLife
         ExecuteScript("create_table_regioes.sql");
         ExecuteScript("create_table_cidades.sql");
         ExecuteScript("create_table_contatos.sql");
-    } 
+        ExecuteScript("insert_into_regioes_table.sql");
+        ExecuteScript("insert_into_cidades_table.sql");
+        ExecuteScript("insert_into_contatos_table.sql");
+    }
+
     public new async Task DisposeAsync() => await _dockerFixture.DisposeAsync();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -52,7 +56,7 @@ public class ContatosServiceFactory : WebApplicationFactory<Program>, IAsyncLife
         return
             $"Server=localhost,{_dockerFixture.MsSqlContainer.GetMappedPublicPort(1433)};User=sa;Password=Strong_password_123!;TrustServerCertificate=True";
     }
-    
+
     public void ExecuteScript(string scriptName)
     {
         var scriptPath = Path.Combine(Directory.GetCurrentDirectory(), "Scripts", "Sql", scriptName);

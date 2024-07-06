@@ -12,8 +12,6 @@ public class AtualizaContatoTests(ContatosServiceFactory factory) : Infra.Integr
         string nome, string email)
     {
         // Arrange
-        ExecuteScript("insert_into_regioes_table.sql");
-        ExecuteScript("insert_into_contatos_table.sql");
         var contatoRequest = new AtualizaContatoRequest
         {
             Nome = nome,

@@ -1,5 +1,5 @@
 using System.Text.Json;
-using ContatosService.Domain.Entities;
+using ContatosService.IntegrationTests.ApiResponses;
 
 namespace ContatosService.IntegrationTests.Endpoints;
 
@@ -10,11 +10,6 @@ public class BuscaContatosTests(ContatosServiceFactory factory) : Infra.Integrat
     [InlineData("21")]
     public async Task EditarContato_DeveRetornarComSucesso_QuandoParametrosValidos(string ddd)
     {
-        // Arrange
-        ExecuteScript("insert_into_regioes_table.sql");
-        ExecuteScript("insert_into_cidades_table.sql");
-        ExecuteScript("insert_into_contatos_table.sql");
-
         // Act
         var response = await Client.GetAsync($"/api/v1/contatos?ddd={ddd}");
 
@@ -24,6 +19,6 @@ public class BuscaContatosTests(ContatosServiceFactory factory) : Infra.Integrat
         var contatos = JsonSerializer.Deserialize<List<Contato>>(content);
         contatos.Should().NotBeNullOrEmpty();
         contatos.Should().HaveCount(3);
-        contatos.Should().Contain(c => c.Regiao.Ddd == ddd);
+        contatos.Should().Contain(c => c.regiao.ddd == ddd);
     }
 }
