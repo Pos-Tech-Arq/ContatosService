@@ -10,7 +10,6 @@ public class AtualizaContatoCommand
 
     public AtualizaContatoCommand(Guid id, string ddd, string numero, string nome, string email)
     {
-
         Ddd = ddd;
         Numero = numero;
         Nome = nome;
