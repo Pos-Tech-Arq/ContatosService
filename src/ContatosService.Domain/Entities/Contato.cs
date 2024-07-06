@@ -1,7 +1,7 @@
-﻿using ContatosService.Domain.Contracts;
+﻿using System.Text.Json.Serialization;
+using ContatosService.Domain.Contracts;
 using ContatosService.Domain.ValueObjects;
 using ContatosService.Infra.Services;
-using System.Data;
 
 namespace ContatosService.Domain.Entities;
 
@@ -20,6 +20,7 @@ public class Contato : Entidade, IAggregateRoot
         Id = Guid.NewGuid();
     }
 
+    [JsonConstructor]
     public Contato(Guid id, string nome, string email, Telefone telefone)
     {
         Nome = nome;
