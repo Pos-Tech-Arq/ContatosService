@@ -21,9 +21,15 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
-    - name: Build and execute unit tests
+    - name: Build application
       run: |
         dotnet build --configuration Release
-        dotnet test --configuration Release
-
-
+        
+        
+  tests:
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Test application
+        run: dotnet test --configuration Release
