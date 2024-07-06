@@ -1,10 +1,10 @@
-name: .NET Core Desktop
+name: API Contatos .NET Core
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "feature/testes-integracoes-milena" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "feature/testes-integracoes-milena" ]
 
 jobs:
 
