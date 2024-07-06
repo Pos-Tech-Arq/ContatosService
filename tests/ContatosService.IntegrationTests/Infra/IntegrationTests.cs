@@ -11,9 +11,4 @@ public abstract class IntegrationTests(ContatosServiceFactory factory)
 
     protected ApplicationDbContext DbContext =>
         _integrationTestScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-    protected void ExecuteScript(string scriptName)
-    {
-        factory.ExecuteScript(scriptName);
-    }
 }
