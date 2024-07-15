@@ -1,21 +1,26 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER $APP_UID
 WORKDIR /app
-EXPOSE 3007/tcp
-EXPOSE 3008/tcp
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
-COPY ["src/ContatosService.Api/ContatosService.Api.csproj", "ContatosService.Api/"]
-COPY ["src/ContatosService.Domain/ContatosService.Domain.csproj", "ContatosService.Domain/"]
-COPY ["src/ContatosService.Infra/ContatosService.Infra.csproj", "ContatosService.Infra/"]
+EXPOSE 8080
+EXPOSE 8081
 
-RUN dotnet restore "ContatosService.Api/ContatosService.Api.csproj"
-RUN dotnet restore "ContatosService.Domain/ContatosService.Domain.csproj"
-RUN dotnet restore "ContatosService.Infra/ContatosService.Infra.csproj"
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["src/ContatosService.Api/ContatosService.Api.csproj", "src/ContatosService.Api/"]
+COPY ["src/ContatosService.Domain/ContatosService.Domain.csproj", "src/ContatosService.Domain/"]
+COPY ["src/ContatosService.Infra/ContatosService.Infra.csproj", "src/ContatosService.Infra/"]
+RUN dotnet restore "src/ContatosService.Api/ContatosService.Api.csproj"
 COPY . .
-RUN dotnet build "src/ContatosService.Api.csproj" -c Release -o /app/build
+WORKDIR "/src/src/ContatosService.Api"
+RUN dotnet build "ContatosService.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
 FROM build AS publish
-RUN dotnet publish "src/ContatosService.Api.csproj" -c Release -o /app/publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "ContatosService.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
 FROM base AS final
 WORKDIR /app
+
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "ContatosService.Api.dll"]

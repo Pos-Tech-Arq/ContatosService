@@ -9,9 +9,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContatosService.UnitTests", "tests\ContatosService.UnitTests\ContatosService.UnitTests.csproj", "{27DD6C82-22BE-45EE-96D0-C6A16AA1D485}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{71292E15-A350-49D1-AEBF-42DAAF3DEDC9}"
-	ProjectSection(SolutionItems) = preProject
-		Dockerfile = Dockerfile
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContatosService.IntegrationTests", "tests\ContatosService.IntegrationTests\ContatosService.IntegrationTests.csproj", "{22E3580D-4698-4C92-9F4C-89E3E0EC0F2A}"
 EndProject

@@ -1,0 +1,63 @@
+version: "3"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        version: 1
+    image: contatos-service-api-metrics
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Server="mssql-server"
+      - Database=ContatosDb
+      - Password="1q2w3e4r@#$"
+    networks:
+      - contatos-service-network
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+        
+  sqlserver:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    hostname: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=1q2w3e4r@#$
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    expose:
+      - "1433"
+    networks:
+      - contatos-service-network
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ "CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -U sa -P '1q2w3e4r@#$' -Q 'SELECT 1'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  
+  prometheus:
+    build: 
+        context: ./prometheus
+        dockerfile: Dockerfile
+        args:
+          version: 1
+    image: prometheus-local
+    restart: always
+    ports:
+      - "9090:9090"
+    networks:
+        - contatos-service-network
+    volumes:
+      - './prometheus/data:/data'
+  
+   
+networks:
+  contatos-service-network:
+    driver: overlay
+    external: true 
