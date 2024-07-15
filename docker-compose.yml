@@ -19,10 +19,14 @@ services:
     depends_on:
       sqlserver:
         condition: service_healthy
-        
+
   sqlserver:
-    image: "mcr.microsoft.com/mssql/server:2022-latest"
-    hostname: sqlserver
+    build:
+      context: ./sqlserver
+      dockerfile: Dockerfile
+      args:
+        version: 1
+    image: sqlserver-local
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=1q2w3e4r@#$
@@ -34,7 +38,7 @@ services:
     networks:
       - contatos-service-network
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - './sqlserver/data:/var/opt/mssql/data/ContatosDb'
     healthcheck:
       test: [ "CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -U sa -P '1q2w3e4r@#$' -Q 'SELECT 1'" ]
       interval: 10s
