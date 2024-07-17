@@ -59,9 +59,21 @@ services:
         - contatos-service-network
     volumes:
       - './prometheus/data:/data'
+        
+  grafana:
+    build:
+      context: ./grafana
+      dockerfile: Dockerfile
+      args:
+          version: 1
+    image: grafana-local
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+        - contatos-service-network
   
    
 networks:
   contatos-service-network:
-    driver: overlay
-    external: true 
+    driver: bridge
