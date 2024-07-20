@@ -6,20 +6,22 @@ using ContatosService.Infra.ExternalServices.BrasilApiService;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Metrics;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient();
 builder.Services.ConfigureDatabase(builder.Configuration);
 builder.Services.ConfigureRepositories();
 builder.Services.AddDomainService();
 builder.Services.AddBrasilApiClientExtensions(builder.Configuration);
 builder.Services.AddValidatorsFromAssemblyContaining<CriarContatoRequestValidator>();
 builder.AddFluentValidationEndpointFilter();
+builder.Services.AddHealthChecks().ForwardToPrometheus();
 
+builder.Services.UseHttpClientMetrics();
 builder.Services.AddOpenTelemetry()
     .WithMetrics(metrics =>
     {
@@ -59,10 +61,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapPrometheusScrapingEndpoint();
-
-// app.UseHttpsRedirection();
+app.UseRouting();
+app.UseHttpMetrics();
+app.UseAuthorization();
+app.MapControllers();
+app.MapHealthChecks("/health");
 app.RegisterContatosEndpoints();
+app.MapMetrics();
 
 app.Run();
 
