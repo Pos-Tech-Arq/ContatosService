@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s  # Intervalo de scraping das métricas
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']  # Métricas do Prometheus
+
+  - job_name: 'my-service'
+    static_configs:
+      - targets: ['localhost:5001']  # Substitua pelo endereço do seu serviço real

@@ -1,0 +1,102 @@
+
+version: '3.8'
+
+networks:
+  contatos-network:
+    driver: bridge
+
+volumes:
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+
+services:
+  api:
+    image: contatos-services-api
+    depends_on:
+      - otel-collector
+      - sqlserver
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    environment:
+        Otel__Endpoint: http://otel-collector:4317
+        Server: "mssql-server"
+        Database: ContatosDb
+        Password: "1q2w3e4r@#$"
+
+    networks:
+      - contatos-network
+
+  otel-collector:
+    image: otel/opentelemetry-collector:0.95.0
+    command: ["--config=/etc/config.yml"]
+    volumes:
+      - ./config/otel-collector-config.yml:/etc/config.yml
+    ports:
+      - "8888:8888" 
+      - "8889:8889" 
+      - "13133:13133"
+      - "4317:4317"
+    networks:
+      - contatos-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+    networks:
+      - contatos-network
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+    networks:
+      - contatos-network
+
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:v1.5.0
+    container_name: node_exporter
+    command: '--path.rootfs=/host'
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    networks:
+      - contatos-network
+
+  sqlserver:
+    build:
+      context: ./sqlserver
+      dockerfile: Dockerfile
+      args:
+        version: 1
+    image: sqlserver-local
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=1q2w3e4r@#$
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    expose:
+      - "1433"
+    networks:
+      - contatos-network
+    volumes:
+      - './sqlserver/data:/var/opt/mssql/data/ContatosDb'

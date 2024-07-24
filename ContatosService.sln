@@ -1,16 +1,31 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContatosService.Api", "src\ContatosService.Api\ContatosService.Api.csproj", "{73B1DAD4-E456-4EF1-AC13-ED00917161E7}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContatosService.Api", "src\ContatosService.Api\ContatosService.Api.csproj", "{73B1DAD4-E456-4EF1-AC13-ED00917161E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContatosService.Domain", "src\ContatosService.Domain\ContatosService.Domain.csproj", "{E05F49AC-AB87-44CF-A7DB-D882A6BFCF8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContatosService.Domain", "src\ContatosService.Domain\ContatosService.Domain.csproj", "{E05F49AC-AB87-44CF-A7DB-D882A6BFCF8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContatosService.Infra", "src\ContatosService.Infra\ContatosService.Infra.csproj", "{D7B16F75-39DD-4718-9CF7-D15F35BCC2AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContatosService.Infra", "src\ContatosService.Infra\ContatosService.Infra.csproj", "{D7B16F75-39DD-4718-9CF7-D15F35BCC2AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContatosService.UnitTests", "tests\ContatosService.UnitTests\ContatosService.UnitTests.csproj", "{27DD6C82-22BE-45EE-96D0-C6A16AA1D485}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContatosService.UnitTests", "tests\ContatosService.UnitTests\ContatosService.UnitTests.csproj", "{27DD6C82-22BE-45EE-96D0-C6A16AA1D485}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{71292E15-A350-49D1-AEBF-42DAAF3DEDC9}"
 	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
 		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{44ECFE85-F8DE-4756-A2CD-EE8CA0E1DFC3}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{CA035BA4-EF4A-4B44-A7D6-547D5ACF866F}"
+	ProjectSection(SolutionItems) = preProject
+		otel-collector-config.yml = otel-collector-config.yml
+		prometheus.yml = prometheus.yml
 	EndProjectSection
 EndProject
 Global
@@ -35,5 +50,11 @@ Global
 		{27DD6C82-22BE-45EE-96D0-C6A16AA1D485}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27DD6C82-22BE-45EE-96D0-C6A16AA1D485}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27DD6C82-22BE-45EE-96D0-C6A16AA1D485}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9945DBC9-52DD-4558-9F3C-39805F0D3BEE}
 	EndGlobalSection
 EndGlobal
