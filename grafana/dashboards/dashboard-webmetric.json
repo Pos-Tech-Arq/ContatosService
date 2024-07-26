@@ -23,7 +23,7 @@
   "gnetId": 10427,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1721488198217,
+  "iteration": 1721955292971,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -118,21 +118,7 @@
             "mode": "fixed"
           },
           "links": [],
-          "mappings": [
-            {
-              "options": {
-                "NaN": {
-                  "index": 1,
-                  "text": "0"
-                },
-                "No data": {
-                  "index": 0,
-                  "text": "0"
-                }
-              },
-              "type": "value"
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -169,7 +155,6 @@
           "fields": "",
           "values": false
         },
-        "text": {},
         "textMode": "auto"
       },
       "pluginVersion": "8.3.3",
@@ -180,7 +165,7 @@
             "uid": "P865CE94EDFCE1AF5"
           },
           "exemplar": false,
-          "expr": "http_requests_received_total{code=~\"4..|5..\"}",
+          "expr": "sum(http_requests_received_total{code=~\"4..|5..\"})",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -442,7 +427,7 @@
           "refId": "A"
         }
       ],
-      "title": "Number of successfully requests per endpoint",
+      "title": "Number of requests per endpoint",
       "type": "bargauge"
     },
     {
@@ -781,8 +766,8 @@
     ]
   },
   "time": {
-    "from": "2024-07-20T15:10:45.864Z",
-    "to": "2024-07-20T15:20:45.864Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
