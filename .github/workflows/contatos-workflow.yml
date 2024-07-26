@@ -2,9 +2,9 @@ name: API Contatos .NET Core
 
 on:
   push:
-    branches: [ "main", "feature/testes-integracoes-milena" ]
+    branches: [ "main", "feature/testes-integracoes" ]
   pull_request:
-    branches: [ "main", "feature/testes-integracoes-milena" ]
+    branches: [ "main", "feature/testes-integracoes" ]
 
 jobs:
 
