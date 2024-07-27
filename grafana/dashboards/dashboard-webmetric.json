@@ -315,10 +315,7 @@
       "type": "gauge"
     },
     {
-      "datasource": {
-        "type": "mssql",
-        "uid": "3AskbCXIk"
-      },
+     "datasource": "sqlserver-metrics",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -367,10 +364,7 @@
       "targets": [
         {
           "alias": "",
-          "datasource": {
-            "type": "mssql",
-            "uid": "3AskbCXIk"
-          },
+          "datasource": "sqlserver-metrics",
           "format": "table",
           "rawSql": "SELECT COUNT(*) AS Contatos\nFROM [dbo].[Contatos]",
           "refId": "Contatos"
@@ -550,10 +544,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "mssql",
-        "uid": "3AskbCXIk"
-      },
+      "datasource": "sqlserver-metrics",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -597,20 +588,14 @@
       "targets": [
         {
           "alias": "",
-          "datasource": {
-            "type": "mssql",
-            "uid": "3AskbCXIk"
-          },
+          "datasource": "sqlserver-metrics",
           "format": "table",
           "rawSql": "SELECT COUNT(*) AS Regions\nFROM [dbo].[Regioes]",
           "refId": "A"
         },
         {
           "alias": "",
-          "datasource": {
-            "type": "mssql",
-            "uid": "3AskbCXIk"
-          },
+          "datasource": "sqlserver-metrics",
           "format": "table",
           "hide": false,
           "rawSql": "SELECT COUNT(*) AS Cities\nFROM [dbo].[Cidades]",

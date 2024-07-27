@@ -6,11 +6,10 @@ datasources:
     type: prometheus
     access: proxy
     url: http://prometheus:9090
-    isDefault: true
 
   - name: sqlserver-metrics
     editable: true
-    type: microsoft_sql_server
+    type: mssql
     access: proxy
     url: sqlserver:1433
     database : ContatosDb
