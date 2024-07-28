@@ -3,7 +3,7 @@ using DotNet.Testcontainers.Containers;
 
 namespace ContatosService.IntegrationTests.Infra;
 
-public class DockerFixture : IAsyncLifetime
+public class DockerFixture
 {
     public IContainer MsSqlContainer { get; }
 
