@@ -8,7 +8,7 @@ using Refit;
 
 namespace ContatosService.IntegrationTests.Services;
 
-public class BuscaRegiaoServiceTests(ContatosServiceFactory factory) : Infra.IntegrationTests(factory)
+public class BuscaRegiaoServiceTests
 {
     [Theory(DisplayName = "Retorna regiao com sucesso"), TestPriority(4)]
     [InlineData("11")]
